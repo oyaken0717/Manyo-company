@@ -1,0 +1,13 @@
+<%= form_with(model: @task, local: true) do |f|%>
+  <%= f.label :仕事名 %>
+  <%= f.string :name %>
+  <%= f.label :終了期限 %>
+  <%= f.date :deadline %>
+  <%= f.label :順位 %>
+  <%= f.integer :priority %>
+  <%= f.label :進捗 %>
+  <%= f.string :status %>
+  <%= f.label :タグ %>
+  <%= f.text :label %>
+  <%= f.submit %>
+<% end %>

@@ -2,10 +2,10 @@
 <%= form_with(model: @task, url: tasks_path, local: true) do |f| %>
   <p>仕事名<%= @task.name%></p>
   <p>仕事内容<%= @task.content %></p>
-  <p>終了期限<%= @task.deadline %></p>
-  <p>順位<%= @task.priority %></p>
-  <p>進捗<%= @task.status %></p>
-  <p>タグ<%= @task.label %></p>
+  <!-- <p>終了期限<%#= @task.deadline %></p> -->
+  <!-- <p>順位<%#= @task.priority %></p> -->
+  <!-- <p>進捗<%#= @task.status %></p> -->
+  <!-- <p>タグ<%#= @task.label %></p> -->
   <%= f.hidden_field :name %>
   <%= f.hidden_field :content %>
   <%= f.hidden_field :deadline %>

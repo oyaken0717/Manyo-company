@@ -16,16 +16,16 @@ ActiveRecord::Schema.define(version: 2019_03_12_012833) do
   enable_extension "plpgsql"
 
   create_table "tasks", force: :cascade do |t|
-    t.string "name", null: false
-    t.date "deadline", null: false
-    t.integer "priority", null: false
-    t.string "status", null: false
-    t.text "label", null: false
-    t.text "content", null: false
+    t.string "name"
+    t.date "deadline"
+    t.integer "priority"
+    t.string "status"
+    t.text "label"
+    t.text "content"
   end
 
   create_table "users", force: :cascade do |t|
-    t.string "name", null: false
+    t.string "name"
   end
 
 end

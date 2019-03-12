@@ -1,6 +1,10 @@
 source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
+gem "pry-rails"
+gem "better_errors"
+gem "binding_of_caller"
+
 ruby '2.5.3'
 
 gem 'rails', '~> 5.2.2'

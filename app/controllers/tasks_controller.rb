@@ -1,18 +1,29 @@
 class TasksController < ApplicationController
+  def index
+    @tasks = Task.all
+  end
+
   def new
     @task = Task.new
   end
 
   def create
-    Blog.create(title: params[:blog][:title], content: params[:blog][:content])
-    @task = Task.create(task_params)
-    redirect_to new_task_path
+      @task = Task.new(task_params)
+      if @task.save
+        redirect_to tasks_path, notice: "作成しました！！"
+      else
+        render "new"
+      end
   end
 
-  privete
+  def show
+    @task = Task.find(params[:id])
+  end
+
+  private
 
   def task_params
-    params.require(:task).permit(:name, :deadline, :priority, :status, :label)
+    params.require(:task).permit(:name, :deadline, :priority, :status, :label, :content)
   end
 
 

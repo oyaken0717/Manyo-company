@@ -1,13 +1,23 @@
 <%= form_with(model: @task, local: true) do |f|%>
+<% if @task.errors.any? %>
+  <h2><%= @task.errors.count %>件のエラーがあります。</h2>
+  <ul>
+    <% @task.errors.full_messages.each do |msg| %>
+       <li><%= msg %></li>
+    <% end %>
+  </ul>
+ <% end %>
   <%= f.label :仕事名 %>
-  <%= f.string :name %>
-  <%= f.label :終了期限 %>
-  <%= f.date :deadline %>
-  <%= f.label :順位 %>
-  <%= f.integer :priority %>
-  <%= f.label :進捗 %>
-  <%= f.string :status %>
-  <%= f.label :タグ %>
-  <%= f.text :label %>
+  <%= f.text_field :name %>
+  <%= f.label :仕事内容　%>
+  <%= f.text_field :content %>
+  <%#= f.label :終了期限 %>
+  <%#= f.date :deadline %>
+  <%#= f.label :順位 %>
+  <%#= f.integer :priority %>
+  <%#= f.label :進捗 %>
+  <%#= f.string :status %>
+  <%#= f.label :タグ %>
+  <%#= f.text :label %>
   <%= f.submit %>
 <% end %>

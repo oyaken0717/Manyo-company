@@ -10,6 +10,7 @@ RSpec.feature "タスク管理機能", type: :feature do
   # tasks_pathにvisitする（タスク一覧ページに遷移する）
   visit tasks_path
 
+  save_and_open_page
   # visitした（到着した）expect(page)に（タスク一覧ページに）「testtesttest」「samplesample」という文字列が
   # have_contentされているか？（含まれているか？）ということをexpectする（確認・期待する）テストを書いている
   expect(page).to have_content 'iiiiiiiiiiii'

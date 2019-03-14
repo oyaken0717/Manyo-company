@@ -1,5 +1,6 @@
 require_relative 'boot'
 
+
 require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
@@ -9,6 +10,7 @@ Bundler.require(*Rails.groups)
 module Manyo
   class Application < Rails::Application
 
+    config.i18n.default_locale = :ja
     config.load_defaults 5.2
 
     config.generators do |g|

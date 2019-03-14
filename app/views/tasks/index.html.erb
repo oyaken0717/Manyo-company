@@ -1,9 +1,9 @@
-<h1>一覧</h1>
+<h1><%= t('view.task.index') %></h1>
 <p> <%= notice %></p>
 <table>
   <tr>
-    <th>仕事名</th>
-    <th>仕事内容</th>
+    <th><%= t("view.task.name") %></th>
+    <th><%= t("view.task.content") %></th>
     <!-- <th>終了期限</th> -->
     <!-- <th>順位</th> -->
     <!-- <th>進捗</th> -->
@@ -17,9 +17,9 @@
     <td><%#= task.priority %></td>
     <td><%#= task.status %></td>
     <td><%#= task.label %></td>
-    <td><%= link_to "詳細", task_path(task.id) %></td>
-    <td><%= link_to "編集", edit_task_path(task.id) %></td>
-    <td><%= link_to "削除", task_path(task.id), method: :delete, data: {confirm: "本当に削除してもいいですか？"} %></td>
+    <td><%= link_to t("view.task.show2"), task_path(task.id) %></td>
+    <td><%= link_to t("view.task.edit2"), edit_task_path(task.id) %></td>
+    <td><%= link_to t("view.task.destroy2"), task_path(task.id), method: :delete, data: {confirm: "本当に削除してもいいですか？"} %></td>
   </tr>
 <% end %>
 </table>

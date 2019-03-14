@@ -1,0 +1,12 @@
+ja:
+  view:
+    task:
+      index: 一覧
+      new: 投稿
+      show: 仕事内容
+      show2: 詳細
+      confirm: 以下の内容で、送信する。
+      edit2: 編集
+      destroy2: 削除
+      name: 仕事名
+      content: 仕事内容

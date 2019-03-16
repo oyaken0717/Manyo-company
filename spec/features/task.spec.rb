@@ -2,18 +2,20 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
 
-  scenario "タスク一覧のテスト" do
-      # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
-    Task.create!(name: 'test_task_01', content: 'iiiiiiiiiiii')
-    Task.create!(name: 'test_task_02', content: 'dddddddddddd')
+  background do
+    # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
+    FactoryBot.create(:task)
+    FactoryBot.create(:second_task)
+  end
 
+  scenario "タスク一覧のテスト" do
     # tasks_pathにvisitする（タスク一覧ページに遷移する）
     visit tasks_path
 
     # visitした（到着した）expect(page)に（タスク一覧ページに）「testtesttest」「samplesample」という文字列が
     # have_contentされているか？（含まれているか？）ということをexpectする（確認・期待する）テストを書いている
-    expect(page).to have_content 'iiiiiiiiiiii'
-    expect(page).to have_content 'dddddddddddd'
+    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル１'
+    expect(page).to have_content 'Factoryで作ったデフォルトのコンテント１'
 
   end
 
@@ -39,19 +41,21 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク詳細のテスト" do
-    Task.create!(name: 'test_task_01', content: 'iiiiiiiiiiii')
+
     visit tasks_path
-    # task.new
-    # # 一覧ページに行く→詳細を押す
-    # before do
-    #   あらかじめの一覧の為のデータ
-    # end
-    # visit task_path(task.id[0])
-    #！！！！！！！！！！！！ □before do □テストのシードデータ　■click on  □feturespec qitta
-    click_on "詳細"
-    expect(page).to have_content 'test_task_01'
-    expect(page).to have_content 'iiiiiiiiiiii'
 
-
+    page.first(".task-index__show-link").click
+    # click_on "詳細"
+    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル２'
+    expect(page).to have_content 'Factoryで作ったデフォルトのコンテント２'
   end
+
+  scenario "タスクが作成日時の降順に並んでいるかのテスト" do
+    # backgroundに必要なタスクデータの作成処理が書かれているので、ここで書く必要がない
+
+    # タスクが作成日時の降順に並んでいるかのテスト
+    visit tasks_path
+    expect(Task.order("created_at DESC").map(&:id)).to eq [8,7]
+  end
+
 end

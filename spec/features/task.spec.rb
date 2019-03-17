@@ -26,7 +26,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     # 「タスク名」というラベル名の入力欄と、「タスク詳細」というラベル名の入力欄に
     # タスクのタイトルと内容をそれぞれfill_in（入力）する
     # 2.ここに「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-    fill_in "task_name", with:"test_task_03"
+    fill_in "task_title", with:"test_task_03"
 
     # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
     fill_in "task_content", with:"testtesttest3"
@@ -58,4 +58,15 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(Task.order("created_at DESC").map(&:id)).to eq [8,7]
   end
 
+  scenario "タスクが終了期限の降順に並んでいるかのテスト" do
+
+    visit tasks_path
+    click_link "終了期限でソートする"
+
+    @tasks = Task.all.order("deadline ASC")
+    expect(@tasks[0].deadline < @tasks[1].deadline).to be true
+
+    # expect(Task.order("deadline DESC").map(&:title)).to eq ["test_task_04","test_task_02","test_task_03","test_task_01"]
+
+  end
 end

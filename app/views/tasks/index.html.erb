@@ -1,23 +1,12 @@
-<!-- .task-index {
-  &__title {
-  }
-  &__table {
-    &__job {
-      &-name {
-      }
-      &-content
-    }
-  }
-} -->
-
 <div class="task-index">
   <h1 class="task-index__title" >一覧</h1>
   <p> <%= notice %></p>
+  <%= link_to "終了期限でソートする", tasks_path(sort_expired: "true"), class: "btn btn-success" %>
   <table class="task-index__table">
     <tr>
       <th class="task-index__table__job-name" >仕事名</th>
       <th class="task-index__table__job-content">仕事内容</th>
-      <!-- <th>終了期限</th> -->
+      <th>終了期限</th>
       <!-- <th>順位</th> -->
       <!-- <th>進捗</th> -->
       <!-- <th>タグ</th> -->
@@ -42,3 +31,14 @@
   <%= link_to "仕事登録", new_task_path %>
 
 </div>
+<!-- .task-index {
+  &__title {
+  }
+  &__table {
+    &__job {
+      &-name {
+      }
+      &-content
+    }
+  }
+} -->

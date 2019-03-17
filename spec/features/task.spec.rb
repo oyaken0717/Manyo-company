@@ -58,7 +58,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     expect(Task.order("created_at DESC").map(&:id)).to eq [8,7]
   end
 
-  scenario "タスクが終了期限の降順に並んでいるかのテスト" do
+  scenario "タスクが終了期限の昇順に並んでいるかのテスト" do
 
     visit tasks_path
     click_link "終了期限でソートする"

@@ -26,12 +26,24 @@ RSpec.describe Task, type: :model do
     expect(task).to be_valid
   end
 
-  it "モデルに作成したscopeを使ってタイトルによる検索ができる" do
-    task = User.first.tasks.build(title: "aaabbb", summary: "タイトルけんさく", limit: '2019-04-17T12:30:45', status: '未着手')
-    task.save
-    expect_task_title = Task.where(title: "aaabbb").first.title
-    search_title = Task.search_with_title(@search_params).first.title
-    expect(search_title).to eq expect_task_title
+  it "title検索" do
+    Task.create(title: "aaa", status: "未着手")
+    Task.create(title: "bbb", status: "着手中")
+    expect(Task.search_title("aaa")).to eq Task.where("title LIKE ?", "%#{"aaa"}%")
+    expect(Task.search_title("aaa").count) == 1
   end
 
+  it "status検索" do
+    Task.create(title: "aaa", status: "未着手")
+    Task.create(title: "bbb", status: "着手中")
+    expect(Task.search_status("未着手")).to eq Task.where(status: "未着手")
+    expect(Task.search_status("未着手").count) == 1
+  end
+
+  it "titleとstatus検索" do
+    Task.create(title: "aaa", status: "未着手")
+    Task.create(title: "bbb", status: "着手中")
+    expect(Task.search_title("aaa").search_status("未着手")).to eq Task.where("title LIKE ?", "%#{"aaa"}%").where(status: "未着手")
+    expect(Task.search_title("aaa").count) == 1
+  end
 end

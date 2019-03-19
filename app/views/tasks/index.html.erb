@@ -1,7 +1,8 @@
 <div class="task-index">
   <h1 class="task-index__title" >一覧</h1>
   <p> <%= notice %></p>
-  <%= link_to "終了期限でソートする", tasks_path(deadline: "true"), class: "btn btn-success" %>
+  <%= link_to "終了期限でソートする", tasks_path(deadline: "true") %>
+  <%= link_to "優先順位でソートする", tasks_path(priority: "true") %>
 
 <%= form_with(model: @tasks, method: :get, local: true, url: tasks_path) do |f| %>
   <%= f.label :title_search, '仕事名検索'%>

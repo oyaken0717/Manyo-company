@@ -11,6 +11,7 @@ class TasksController < ApplicationController
       end
     end
     @tasks = Task.all.order(deadline: :asc) if params[:deadline] == "true"
+    @tasks = Task.all.order(priority: :desc) if params[:priority] == "true"
   end
 
   def new

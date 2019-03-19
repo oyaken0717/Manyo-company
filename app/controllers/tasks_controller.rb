@@ -13,8 +13,8 @@ class TasksController < ApplicationController
       @tasks = @tasks.search_status(params[:task][:status])if params[:task][:status].present?
     end
 
-    @tasks = Task.order(deadline: :asc) if params[:deadline].present?
-    @tasks = Task.order(priority: :desc) if params[:priority].present?
+    @tasks = Task.order(deadline: :asc).page(params[:page]).per(PER) if params[:deadline].present?
+    @tasks = Task.order(priority: :desc).page(params[:page]).per(PER) if params[:priority].present?
     # -----------
     # if search_params[:sort_priority] == t('tasks.priority_sort_desc')
     #   @tasks = @tasks.order(priority: :asc)

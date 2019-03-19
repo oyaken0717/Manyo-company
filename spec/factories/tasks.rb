@@ -19,6 +19,7 @@ FactoryBot.define do
   factory :third_task, class: Task do
     title { 'Factoryで作ったデフォルトのタイトル３' }
     content { 'Factoryで作ったデフォルトのコンテント３' }
-     deadline { Date.today + 3 }
+    deadline { Date.today + 3 }
+
   end
 end

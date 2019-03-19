@@ -1,8 +1,11 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
+  PER = 5
   def index
-    @tasks = Task.order(created_at: :desc)
+    # @words = Word.all
+    # ↓
+    # @words = Word.page(params[:page]).per(PER)
+    @tasks = Task.order(created_at: :desc).page(params[:page]).per(PER)
 
     if params[:task]
       @tasks = @tasks.search_title(params[:task][:title]).search_status(params[:task][:status]) if params[:task][:status].present? && params[:task][:title].present?
@@ -10,8 +13,8 @@ class TasksController < ApplicationController
       @tasks = @tasks.search_status(params[:task][:status])if params[:task][:status].present?
     end
 
-    @tasks = Task.order(deadline: :asc) if params[:deadline].present?
-    @tasks = Task.order(priority: :desc) if params[:priority].present?
+    @tasks = Task.order(deadline: :asc).page(params[:page]).per(PER) if params[:deadline].present?
+    @tasks = Task.order(priority: :desc).page(params[:page]).per(PER) if params[:priority].present?
     # -----------
     # if search_params[:sort_priority] == t('tasks.priority_sort_desc')
     #   @tasks = @tasks.order(priority: :asc)

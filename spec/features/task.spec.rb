@@ -6,6 +6,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     # あらかじめタスク一覧のテストで使用するためのタスクを二つ作成する
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
+    FactoryBot.create(:third_task)
   end
 
   scenario "タスク一覧のテスト" do
@@ -55,18 +56,20 @@ RSpec.feature "タスク管理機能", type: :feature do
 
     # タスクが作成日時の降順に並んでいるかのテスト
     visit tasks_path
-    expect(Task.order("created_at DESC").map(&:id)).to eq [8,7]
+    expect(Task.order("created_at DESC").map(&:id)).to eq [12,11,10]
   end
 
   scenario "タスクが終了期限の昇順に並んでいるかのテスト" do
-
     visit tasks_path
     click_link "終了期限でソートする"
-
-    @tasks = Task.all.order("deadline ASC")
+    @tasks = Task.order("deadline ASC")
     expect(@tasks[0].deadline < @tasks[1].deadline).to be true
+  end
 
-    # expect(Task.order("deadline DESC").map(&:title)).to eq ["test_task_04","test_task_02","test_task_03","test_task_01"]
+  scenario "タスクが優先順位の降順に並んでいるかのテスト" do
+    visit tasks_path
+    click_on "優先順位でソートする"
+    expect(Task.order("priority DESC").map(&:priority)).to eq ["高","中","低"]
 
   end
 end

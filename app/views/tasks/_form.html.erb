@@ -14,8 +14,9 @@
   <%= f.label :終了期限 %><br>
   <%= f.date_field :deadline %><br>
   <%= f.label :進捗 %><br>
-  <%= f.text_field :status %><br>
+  <%= f.select(:status,['未着手', '着手中', '完了']) %><br>
   <%= f.label :順位 %><br>
   <%= f.text_field :priority %><br>
+  <%= f.select(:priority,Task.priorities.keys) %>
   <%= f.submit %><br>
 <% end %>

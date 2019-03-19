@@ -1,8 +1,11 @@
 class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
-
+  PER = 5
   def index
-    @tasks = Task.order(created_at: :desc)
+    # @words = Word.all
+    # ↓
+    # @words = Word.page(params[:page]).per(PER)
+    @tasks = Task.order(created_at: :desc).page(params[:page]).per(PER)
 
     if params[:task]
       @tasks = @tasks.search_title(params[:task][:title]).search_status(params[:task][:status]) if params[:task][:status].present? && params[:task][:title].present?

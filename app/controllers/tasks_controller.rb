@@ -9,8 +9,8 @@ class TasksController < ApplicationController
       if params[:task][:status].present?
         @tasks = @tasks.search_status(params[:task][:status])
       end
-      @tasks = Task.all.order(deadline: :asc) if params[:deadline] == "true"
     end
+    @tasks = Task.all.order(deadline: :asc) if params[:deadline] == "true"
   end
 
   def new

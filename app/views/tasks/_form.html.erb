@@ -1,12 +1,12 @@
 <%= form_with(model: @task, local: true, url: choose_new_or_edit) do |f|%>
-<% if @task.errors.any? %>
-  <h2><%= @task.errors.count %>件のエラーがあります。</h2>
-  <ul>
-    <% @task.errors.full_messages.each do |msg| %>
-       <li><%= msg %></li>
-    <% end %>
-  </ul>
- <% end %>
+  <% if @task.errors.any? %>
+    <h2><%= @task.errors.count %>件のエラーがあります。</h2>
+    <ul>
+      <% @task.errors.full_messages.each do |msg| %>
+         <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <%= f.label :仕事名 %><br>
   <%= f.text_field :title %><br>
   <%= f.label :仕事内容　%><br>
@@ -16,6 +16,6 @@
   <%= f.label :進捗 %><br>
   <%= f.text_field :status %><br>
   <%= f.label :順位 %><br>
-  <%= f.text :priority %><br>
+  <%= f.text_field :priority %><br>
   <%= f.submit %><br>
 <% end %>

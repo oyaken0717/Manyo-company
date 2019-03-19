@@ -20,6 +20,5 @@ FactoryBot.define do
     title { 'Factoryで作ったデフォルトのタイトル３' }
     content { 'Factoryで作ったデフォルトのコンテント３' }
     deadline { Date.today + 3 }
-
   end
 end

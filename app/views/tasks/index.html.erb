@@ -1,7 +1,8 @@
 <div class="task-index">
   <h1 class="task-index__title" >一覧</h1>
   <p> <%= notice %></p>
-  <%= link_to "終了期限でソートする", tasks_path(deadline: "true"), class: "btn btn-success" %>
+  <%= link_to "終了期限でソートする", tasks_path(deadline: "true") %>
+  <%= link_to "優先順位でソートする", tasks_path(priority: "true") %>
 
 <%= form_with(model: @tasks, method: :get, local: true, url: tasks_path) do |f| %>
   <%= f.label :title_search, '仕事名検索'%>
@@ -10,16 +11,13 @@
   <%= f.select :status,["","未着手","着手中","完了"] %>
   <%= f.submit '検索' %>
 <% end %>
-
   <table class="task-index__table">
     <tr>
       <th class="task-index__table__job-name" >仕事名</th>
       <th class="task-index__table__job-content">仕事内容</th>
       <th>終了期限</th>
       <th>進捗</th>
-      <!-- <th>順位</th> -->
-
-      <!-- <th>タグ</th> -->
+      <th>順位</th>
     </tr>
   <% @tasks.each do |task| %>
     <tr>
@@ -27,19 +25,15 @@
       <td><%= task.content %></td>
       <td><%= task.deadline %></td>
       <td><%= task.status %></td>
-      <td><%#= task.priority %></td>
-      <td><%#= task.label %></td>
+      <td><%= task.priority %></td>
       <td><%= link_to "詳細", task_path(task.id), class: "task-index__show-link" %></td>
       <td><%= link_to "編集", edit_task_path(task.id) %></td>
       <td><%= link_to "削除", task_path(task.id), method: :delete, data: {confirm: "本当に削除してもいいですか？"} %></td>
     </tr>
   <% end %>
   </table>
-
   <br>
-
   <%= link_to "仕事登録", new_task_path %>
-
 </div>
 <!-- .task-index {
   &__title {

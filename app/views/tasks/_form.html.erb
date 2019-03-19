@@ -1,12 +1,12 @@
 <%= form_with(model: @task, local: true, url: choose_new_or_edit) do |f|%>
-<% if @task.errors.any? %>
-  <h2><%= @task.errors.count %>件のエラーがあります。</h2>
-  <ul>
-    <% @task.errors.full_messages.each do |msg| %>
-       <li><%= msg %></li>
-    <% end %>
-  </ul>
- <% end %>
+  <% if @task.errors.any? %>
+    <h2><%= @task.errors.count %>件のエラーがあります。</h2>
+    <ul>
+      <% @task.errors.full_messages.each do |msg| %>
+         <li><%= msg %></li>
+      <% end %>
+    </ul>
+  <% end %>
   <%= f.label :仕事名 %><br>
   <%= f.text_field :title %><br>
   <%= f.label :仕事内容　%><br>
@@ -14,10 +14,8 @@
   <%= f.label :終了期限 %><br>
   <%= f.date_field :deadline %><br>
   <%= f.label :進捗 %><br>
-  <%= f.text_field :status %><br>
-  <%#= f.label :順位 %><br>
-  <%#= f.number_field :priority %><br>
-  <%#= f.label :タグ %><br>
-  <%#= f.text_field :label %><br>
+  <%= f.select(:status,['未着手', '着手中', '完了']) %><br>
+  <%= f.label :順位 %><br>
+  <%= f.select(:priority,Task.priorities.keys) %><br>
   <%= f.submit %><br>
 <% end %>

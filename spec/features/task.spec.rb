@@ -26,7 +26,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     # 「タスク名」というラベル名の入力欄と、「タスク詳細」というラベル名の入力欄に
     # タスクのタイトルと内容をそれぞれfill_in（入力）する
     # 2.ここに「タスク名」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
-    fill_in "task_name", with:"test_task_03"
+    fill_in "task_title", with:"test_task_03"
 
     # 3.ここに「タスク詳細」というラベル名の入力欄に内容をfill_in（入力）する処理を書く
     fill_in "task_content", with:"testtesttest3"

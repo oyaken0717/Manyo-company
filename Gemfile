@@ -53,3 +53,5 @@ source 'https://rubygems.org'
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
 gem 'kaminari', '~> 0.17.0'
+
+gem 'bcrypt', '3.1.11'

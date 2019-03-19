@@ -59,7 +59,6 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスクが終了期限の昇順に並んでいるかのテスト" do
-
     visit tasks_path
     click_link "終了期限でソートする"
 

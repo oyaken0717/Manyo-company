@@ -2,9 +2,6 @@ class TasksController < ApplicationController
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   PER = 5
   def index
-    # @words = Word.all
-    # ↓
-    # @words = Word.page(params[:page]).per(PER)
     @tasks = Task.order(created_at: :desc).page(params[:page]).per(PER)
 
     if params[:task]
@@ -15,15 +12,6 @@ class TasksController < ApplicationController
 
     @tasks = Task.order(deadline: :asc).page(params[:page]).per(PER) if params[:deadline].present?
     @tasks = Task.order(priority: :desc).page(params[:page]).per(PER) if params[:priority].present?
-    # -----------
-    # if search_params[:sort_priority] == t('tasks.priority_sort_desc')
-    #   @tasks = @tasks.order(priority: :asc)
-    # end
-    # -----------
-    # @tasks = current_user.tasks.sort_priority if params[:sort_priority] == "true"#優先順位
-    # ----------
-    # elsif params[:sort_priority]
-    # @tasks = current_user.tasks.sort_priority
   end
 
   def new
@@ -36,7 +24,8 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
+
     if @task.save
       redirect_to tasks_path, notice: "作成しました！！"
     else
@@ -62,7 +51,7 @@ class TasksController < ApplicationController
   end
 
   def confirm
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     render :new if @task.invalid?
   end
 

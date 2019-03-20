@@ -23,6 +23,10 @@ body {
   height: 100%;
 }
 
+td, th {
+    padding: 2px;
+}
+
 .header {
   background-color: #F5B4B3;
   height: 50px;

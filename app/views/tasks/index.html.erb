@@ -9,7 +9,7 @@
   <%= f.text_field :title %>
   <%= f.label :status_search, '進捗検索' %>
   <%= f.select :status,["","未着手","着手中","完了"] %>
-  <%= f.submit '検索' %><br><br>
+  <%= f.submit '検索', class:"btn btn-primary" %><br><br>
 <% end %>
   <table class="task-index__table">
     <tr>
@@ -26,9 +26,9 @@
       <td><%= task.deadline %></td>
       <td><%= task.status %></td>
       <td><%= task.priority %></td>
-      <td><%= link_to "詳細", task_path(task.id), class: "task-index__show-link" %></td>
-      <td><%= link_to "編集", edit_task_path(task.id) %></td>
-      <td><%= link_to "削除", task_path(task.id), method: :delete, data: {confirm: "本当に削除してもいいですか？"} %></td>
+      <td><%= link_to "詳細", task_path(task.id), class: "btn btn-primary" %></td>
+      <td><%= link_to "編集", edit_task_path(task.id), class: "btn btn-primary" %></td>
+      <td><%= link_to "削除", task_path(task.id), method: :delete, data: {confirm: "本当に削除してもいいですか？"}, class: "btn btn-primary" %></td>
     </tr>
   <% end %>
   <%= paginate @tasks %><br>

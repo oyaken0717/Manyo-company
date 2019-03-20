@@ -1,4 +1,5 @@
 class UsersController < ApplicationController
+  before_action :authenticate_session_user, only: [:show]
   def new
     @user = User.new
   end
@@ -13,7 +14,7 @@ class UsersController < ApplicationController
   end
 
   def show
-    @user = User.find(params[:id])
+    @user = User.find(current_user.id)
   end
 
   private
@@ -27,7 +28,7 @@ class UsersController < ApplicationController
       render "new"
     end
   end
-  
+
   def user_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation)
   end

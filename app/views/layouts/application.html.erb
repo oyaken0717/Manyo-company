@@ -17,6 +17,9 @@
         <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
     <% if logged_in? %>
+      <% if current_user.admin? %>
+        <%= link_to "ユーザー一覧", admin_users_path %>
+      <% end %>
       <%= link_to "プロフィール", user_path(current_user.id) %>
       <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
     <% else %>

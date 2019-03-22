@@ -9,7 +9,6 @@ FactoryBot.define do
     deadline { Date.today + 1 }
     priority { "低" }
   end
-
   # 作成するテストデータの名前を「second_task」とします
   # （存在しないクラス名の名前をつける場合、オプションで「このクラスのテストデータにしてください」と指定します）
   factory :second_task, class: Task do

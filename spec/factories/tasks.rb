@@ -25,4 +25,5 @@ FactoryBot.define do
     deadline { Date.today + 3 }
     priority { "中" }
   end
+
 end

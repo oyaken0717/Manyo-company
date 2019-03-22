@@ -19,6 +19,7 @@
     <% if logged_in? %>
       <%= link_to "プロフィール", user_path(current_user.id) %>
       <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
+      <%= link_to "仕事一覧", tasks_path %>
     <% else %>
       <%= link_to "新規登録", new_user_path %>
       <%= link_to "ログイン", new_session_path %>

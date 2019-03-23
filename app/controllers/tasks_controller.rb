@@ -5,7 +5,6 @@ class TasksController < ApplicationController
   PER = 5
   def index
       @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(PER)
-
     if params[:task]
       @tasks = @tasks.search_title(params[:task][:title]).search_status(params[:task][:status]) if params[:task][:status].present? && params[:task][:title].present?
       @tasks = @tasks.search_title(params[:task][:title])if params[:task][:title].present?

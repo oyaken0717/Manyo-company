@@ -6,4 +6,8 @@ class User < ApplicationRecord
   format: { with: /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i }
   validates :password, presence: true, length: { minimum: 6 }
   has_secure_password
+
+  def taskIsOwned?(task)
+    return self.id == task.user_id
+  end
 end

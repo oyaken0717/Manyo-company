@@ -1,9 +1,10 @@
 class TasksController < ApplicationController
+  before_action :authenticate_session_user
   before_action :set_task, only: [:show, :edit, :update, :destroy]
+
   PER = 5
   def index
-    @tasks = Task.order(created_at: :desc).page(params[:page]).per(PER)
-
+      @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(PER)
     if params[:task]
       @tasks = @tasks.search_title(params[:task][:title]).search_status(params[:task][:status]) if params[:task][:status].present? && params[:task][:title].present?
       @tasks = @tasks.search_title(params[:task][:title])if params[:task][:title].present?
@@ -24,7 +25,7 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     if @task.save
       redirect_to tasks_path, notice: "作成しました！！"
     else
@@ -32,7 +33,9 @@ class TasksController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    redirect_to tasks_path unless @task.isOwned?(current_user)
+  end
 
   def edit; end
 
@@ -50,7 +53,7 @@ class TasksController < ApplicationController
   end
 
   def confirm
-    @task = Task.new(task_params)
+    @task = current_user.tasks.build(task_params)
     render :new if @task.invalid?
   end
 
@@ -61,6 +64,7 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = Task.find_by(id: params[:id])
+    redirect_to tasks_path if @task.nil?
   end
 end

@@ -22,4 +22,5 @@ FactoryBot.define do
     priority { "中" }
     user { User.first || association(:user) }
   end
+
 end

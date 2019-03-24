@@ -22,12 +22,11 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク一覧のテスト" do
-    expect(page).to have_content 'ログインに失敗しました'
-    visit new_session_path
-    fill_in 'session_email', with: 'a@a.com'
-    fill_in 'session_password', with: 'a@a.com'
-    click_button 'ログイン'
-
+    # visit new_session_path
+    # fill_in "session_email", with: "a@a.com"
+    # fill_in "session_password", with: "a@a.com"
+    # click_button 'ログイン'
+    # expect(page).to have_content 'ログインしました'
     visit tasks_path
     expect(page).to have_content 'タイトル1'
     expect(page).to have_content 'コンテンツ1'

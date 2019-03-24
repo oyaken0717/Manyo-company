@@ -3,31 +3,50 @@ require 'rails_helper'
 RSpec.feature "タスク管理機能", type: :feature do
 
   background do
+    FactoryBot.create(:user)
+    FactoryBot.create(:second_user)
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
     FactoryBot.create(:third_task)
   end
 
+  before do
+    user = FactoryBot.create(:user)
+    visit new_session_path
+    debugger
+    fill_in 'session_email', with: 'a@a.com'
+    fill_in 'session_password', with: 'a@a.com'
+    fill_in 'session_email', with: user.email
+    fill_in 'session_password', with: user.password_digest
+    click_button 'ログイン'
+  end
+
   scenario "タスク一覧のテスト" do
+    expect(page).to have_content 'ログインに失敗しました'
+    visit new_session_path
+    fill_in 'session_email', with: 'a@a.com'
+    fill_in 'session_password', with: 'a@a.com'
+    click_button 'ログイン'
+
     visit tasks_path
-    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル１'
-    expect(page).to have_content 'Factoryで作ったデフォルトのコンテント１'
+    expect(page).to have_content 'タイトル1'
+    expect(page).to have_content 'コンテンツ1'
   end
 
   scenario "タスク作成のテスト" do
     visit new_task_path
-    fill_in "task_title", with:"test_task_01"
-    fill_in "task_content", with:"testtesttest1"
+    fill_in "task_title", with:"タイトルnew"
+    fill_in "task_content", with:"コンテンツnew"
     click_on "Create Task"
-    expect(page).to have_content 'test_task_01'
-    expect(page).to have_content 'testtesttest1'
+    expect(page).to have_content 'タイトルnew'
+    expect(page).to have_content 'コンテンツnew'
   end
 
   scenario "タスク詳細のテスト" do
     visit tasks_path
     page.first(".task-index__show-link").click
-    expect(page).to have_content 'Factoryで作ったデフォルトのタイトル３'
-    expect(page).to have_content 'Factoryで作ったデフォルトのコンテント３'
+    expect(page).to have_content 'タイトル3'
+    expect(page).to have_content 'コンテンツ3'
   end
 
   scenario "タスクが作成日時の降順に並んでいるかのテスト" do

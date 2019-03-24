@@ -1,10 +1,10 @@
 require "rails_helper"
 
 RSpec.feature "ユーザー管理機能", type: :feature do
-  background do
-    FactoryBot.create(:user)
-    FactoryBot.create(:second_user)
-  end
+  # background do
+  #   FactoryBot.create(:user)
+  #   FactoryBot.create(:second_user)
+  # end
 
   scenario "ユーザー登録のテスト" do
     visit new_user_path

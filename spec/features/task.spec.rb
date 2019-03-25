@@ -3,26 +3,19 @@ require 'rails_helper'
 RSpec.feature "タスク管理機能", type: :feature do
 
   background do
-    FactoryBot.create(:user)
-    FactoryBot.create(:second_user)
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)
     FactoryBot.create(:third_task)
   end
 
   before do
-    user = FactoryBot.create(:user)
     visit new_session_path
-    debugger
     fill_in 'session_email', with: 'a@a.com'
     fill_in 'session_password', with: 'a@a.com'
-    fill_in 'session_email', with: user.email
-    fill_in 'session_password', with: user.password_digest
     click_button 'ログイン'
   end
 
   scenario "タスク一覧のテスト" do
-    expect(page).to have_content 'ログインに失敗しました'
     visit new_session_path
     fill_in 'session_email', with: 'a@a.com'
     fill_in 'session_password', with: 'a@a.com'

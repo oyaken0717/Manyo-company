@@ -5,6 +5,7 @@ FactoryBot.define do
     content { 'コンテンツ1' }
     deadline { Date.today + 1 }
     priority { "低" }
+    # user
   end
 
   factory :second_task, class: Task do

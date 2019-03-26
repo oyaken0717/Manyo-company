@@ -24,4 +24,17 @@ RSpec.feature "管理ユーザー機能", type: :feature do
     click_on "アカウント登録"
     expect(page).to have_content 'e@e.com'
   end
+
+  scenario "ユーザー詳細のテスト" do
+    visit new_task_path
+    fill_in "task_title", with:"タイトル5"
+    fill_in "task_content", with:"コンテンツ5"
+    fill_in "task_deadline", with:Date.today
+    click_on "Create Task"
+    click_on "登録する"
+    visit admin_users_path
+    click_on(class: 'admin_user_show')
+    expect(page).to have_content 'タイトル5'
+    expect(page).to have_content 'コンテンツ5'
+  end
 end

@@ -37,4 +37,26 @@ RSpec.feature "管理ユーザー機能", type: :feature do
     expect(page).to have_content 'タイトル5'
     expect(page).to have_content 'コンテンツ5'
   end
+
+  scenario "ユーザー更新のテスト" do
+    visit admin_users_path
+    click_on(class: 'admin_user_edit')
+    fill_in 'user_name', with: 'ad2@ad2.com'
+    fill_in 'user_email', with: 'ad2@ad2.com'
+    fill_in 'user_password', with: 'ad@ad.com'
+    fill_in 'user_password_confirmation', with: 'ad@ad.com'
+    click_on "アカウント登録"
+    expect(page).to have_content 'ad2@ad2.com'
+  end
+
+  scenario "ユーザー更新のテスト" do
+    visit admin_users_path
+    click_on(class: 'admin_user_edit')
+    fill_in 'user_name', with: 'ad2@ad2.com'
+    fill_in 'user_email', with: 'ad2@ad2.com'
+    fill_in 'user_password', with: 'ad@ad.com'
+    fill_in 'user_password_confirmation', with: 'ad@ad.com'
+    click_on "アカウント登録"
+    expect(page).to have_content 'ad2@ad2.com'
+  end
 end

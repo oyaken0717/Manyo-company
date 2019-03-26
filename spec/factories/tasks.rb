@@ -7,7 +7,7 @@ FactoryBot.define do
     priority { "低" }
     # user
   end
-
+  
   factory :second_task, class: Task do
     title { 'タイトル2' }
     content { 'コンテンツ2' }
@@ -23,4 +23,5 @@ FactoryBot.define do
     priority { "中" }
     user { User.first || association(:user) }
   end
+
 end

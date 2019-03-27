@@ -3,6 +3,7 @@ RSpec.feature "管理ユーザー機能", type: :feature do
 
   background do
     FactoryBot.create(:admin_user)
+    FactoryBot.create(:admin_user2)
     visit new_session_path
     fill_in 'session_email', with: 'ad@ad.com'
     fill_in 'session_password', with: 'ad@ad.com'
@@ -27,36 +28,42 @@ RSpec.feature "管理ユーザー機能", type: :feature do
 
   scenario "ユーザー詳細のテスト" do
     visit new_task_path
+
     fill_in "task_title", with:"タイトル5"
     fill_in "task_content", with:"コンテンツ5"
     fill_in "task_deadline", with:Date.today
     click_on "Create Task"
     click_on "登録する"
     visit admin_users_path
-    click_on(class: 'admin_user_show')
+    # click_link(class: 'admin_user_show')
+    first('.admin_user_show').click
     expect(page).to have_content 'タイトル5'
     expect(page).to have_content 'コンテンツ5'
   end
 
   scenario "ユーザー更新のテスト" do
     visit admin_users_path
-    click_on(class: 'admin_user_edit')
-    fill_in 'user_name', with: 'ad2@ad2.com'
-    fill_in 'user_email', with: 'ad2@ad2.com'
+    first('.admin_user_edit').click
+    # first('.admin_user_show').click
+    fill_in 'user_name', with: 'ad3@ad3.com'
+    fill_in 'user_email', with: 'ad3@ad3.com'
     fill_in 'user_password', with: 'ad@ad.com'
     fill_in 'user_password_confirmation', with: 'ad@ad.com'
     click_on "アカウント登録"
-    expect(page).to have_content 'ad2@ad2.com'
+    expect(page).to have_content 'ad3@ad3.com'
   end
 
-  scenario "ユーザー更新のテスト" do
+  scenario "ユーザー削除のテスト" do
+    click_on "ログアウト"
+
+    visit new_session_path
+    fill_in 'session_email', with: 'ad2@ad2.com'
+    fill_in 'session_password', with: 'ad2@ad2.com'
+    click_button 'ログイン'
+
     visit admin_users_path
-    click_on(class: 'admin_user_edit')
-    fill_in 'user_name', with: 'ad2@ad2.com'
-    fill_in 'user_email', with: 'ad2@ad2.com'
-    fill_in 'user_password', with: 'ad@ad.com'
-    fill_in 'user_password_confirmation', with: 'ad@ad.com'
-    click_on "アカウント登録"
-    expect(page).to have_content 'ad2@ad2.com'
+    save_and_open_page
+    first('.admin_user_destroy').click
+    expect(page).to have_content 'ad@ad.com'
   end
 end

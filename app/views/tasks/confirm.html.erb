@@ -5,12 +5,13 @@
   <p>終了期限<%= @task.deadline %></p>
   <p>進捗<%= @task.status %></p>
   <p>順位<%= @task.priority %></p>
-
+  <p>タグ<%= @task.labels.name %></p>
   <%= f.hidden_field :title %>
   <%= f.hidden_field :content %>
   <%= f.hidden_field :deadline %>
   <%= f.hidden_field :priority %>
   <%= f.hidden_field :status %>
+  <%= f.hidden_field :label_ids %>
   <%= f.submit "登録する" %>
 <% end %>
 
@@ -20,5 +21,6 @@
   <%= f.hidden_field :deadline %>
   <%= f.hidden_field :priority %>
   <%= f.hidden_field :status %>
+  <%= f.hidden_field :label_ids %>
   <%= f.submit "戻る", name:"back" %>
 <% end %>

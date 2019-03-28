@@ -21,7 +21,6 @@ RSpec.feature "タスク管理機能", type: :feature do
     fill_in 'session_email', with: 'a@a.com'
     fill_in 'session_password', with: 'a@a.com'
     click_button 'ログイン'
-
     visit tasks_path
     expect(page).to have_content 'タイトル1'
     expect(page).to have_content 'コンテンツ1'

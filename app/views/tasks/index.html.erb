@@ -31,7 +31,7 @@
         <td><%= link_to "削除", task_path(task.id), method: :delete, data: {confirm: "本当に削除してもいいですか？"}, class: "btn btn-primary" %></td>
       </tr>
     <% end %>
-    <%= paginate @tasks %><br>
+    <%= paginate @tasks %>
     </table>
     <br>
     <%= paginate @tasks %><br>

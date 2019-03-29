@@ -4,18 +4,12 @@ class TasksController < ApplicationController
 
   PER = 5
   def index
-    # if current_user
-      @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(PER)
-    # else
-      # redirect_to new_session_path
-    # end
-
+    @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(PER)
     if params[:task]
       @tasks = @tasks.search_title(params[:task][:title]).search_status(params[:task][:status]) if params[:task][:status].present? && params[:task][:title].present?
       @tasks = @tasks.search_title(params[:task][:title])if params[:task][:title].present?
       @tasks = @tasks.search_status(params[:task][:status])if params[:task][:status].present?
     end
-
     @tasks = Task.order(deadline: :asc).page(params[:page]).per(PER) if params[:deadline].present?
     @tasks = Task.order(priority: :desc).page(params[:page]).per(PER) if params[:priority].present?
   end
@@ -31,6 +25,7 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
+    # @task.build_task_labels(params[:label_ids])
     if @task.save
       redirect_to tasks_path, notice: "作成しました！！"
     else
@@ -63,7 +58,7 @@ class TasksController < ApplicationController
   private
 
   def task_params
-    params.require(:task).permit(:title, :deadline, :priority, :status, :content, :label_ids[])
+    params.require(:task).permit(:title, :deadline, :priority, :status, :content, :name, label_ids: [])
   end
 
   def set_task

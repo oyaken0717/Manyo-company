@@ -5,17 +5,30 @@
   <p>終了期限<%= @task.deadline %></p>
   <p>進捗<%= @task.status %></p>
   <p>順位<%= @task.priority %></p>
+
   <p>タグ
   <% @task.labels.each do |label| %>
       <%= label.name %>
   <% end %></p>
+
   <%= f.hidden_field :title %>
   <%= f.hidden_field :content %>
   <%= f.hidden_field :deadline %>
   <%= f.hidden_field :priority %>
   <%= f.hidden_field :status %>
+
   <% @task.labels.map(&:id).each do |id| %>
+  <%# ①mapで「ラベルテーブル」の各idを配列に入れ直す
+      ②eachで|id|に一個ずつ入れていく %>
     <%= hidden_field_tag "task[label_ids][]", id %>
+    <%# ③大前提：ストロングパラムスに他のカラムみたいに入れたいけど、
+       　複数タグを選ぶ可能性がある為、こちらで""のように型を指定する（できちゃう）
+        ④value(省略すると強制的にvalueになる)を|id|で受け取る
+        ⑤taskコントローラーのストロングパラムスの中の
+    　    label_idsの配列[]に数字をeachで入れていく %>
+    <%# task[label_ids].push(id)  [9, 0 ,2 ] %>
+    <%# <%= hidden_field_tag("task[label_ids]", value: id) %>
+    <%# task[label_ids] = id  3 %>
   <% end %>
   <%= f.submit "登録する" %>
 <% end %>

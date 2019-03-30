@@ -9,6 +9,9 @@ class TasksController < ApplicationController
       @tasks = @tasks.search_title(params[:task][:title]).search_status(params[:task][:status]) if params[:task][:status].present? && params[:task][:title].present?
       @tasks = @tasks.search_title(params[:task][:title])if params[:task][:title].present?
       @tasks = @tasks.search_status(params[:task][:status])if params[:task][:status].present?
+      # @tasks = @tasks.search_label(params[:task][:label_id]) if params[:task][:label_id].present?
+      @tasks = Label.find(params[:task][:label_id]).getTasks() if params[:task][:label_id].present?
+      #                                             ↑modelsのlabel.rbにあります。
     end
     @tasks = Task.order(deadline: :asc).page(params[:page]).per(PER) if params[:deadline].present?
     @tasks = Task.order(priority: :desc).page(params[:page]).per(PER) if params[:priority].present?
@@ -25,7 +28,6 @@ class TasksController < ApplicationController
 
   def create
     @task = current_user.tasks.build(task_params)
-    # @task.build_task_labels(params[:label_ids])
     if @task.save
       redirect_to tasks_path, notice: "作成しました！！"
     else
@@ -64,5 +66,35 @@ class TasksController < ApplicationController
   def set_task
     @task = Task.find(params[:id])
   end
-
 end
+# label_id = 13
+# このLabelに紐づくTaskを探したい！！
+
+# ちなみに、1対多なら
+# @label = Label.find(13).include(:task)
+# @label.tasks
+#　で済んだ。
+
+
+# 多対多
+# ①
+# @label = Label.find(label_id)
+# ①ー②
+# @tasks = @label.task_labels.map(&:task)
+# ↓↑
+# ①ー②のやさしい言い換え
+# @tasks = @label.task_labels.map do |task_label|
+  # ①ー③
+  # task_label.task
+  # ①ー③のやさしい言い換え（意味同じ）
+  # Task.find(task_label.task_id)
+# end
+
+
+# ②(宮崎さんの最適解)
+# @tasks = Label.find(label_id).getTasks()
+
+
+# ③テキストが求めてたもの
+# @task_labels =  TaskLabel.where(label_id: label_id)
+# @tasks = @task_labels.task)

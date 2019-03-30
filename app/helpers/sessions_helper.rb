@@ -34,3 +34,8 @@ module SessionsHelper
     end
   end
 end
+
+# def hidden_field_tag(params, value: 0, set: '', class: '')
+# end
+
+# hidden_field_tag('task', class: 'task_path', value:  )

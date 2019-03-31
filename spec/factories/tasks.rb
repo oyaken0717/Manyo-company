@@ -6,7 +6,7 @@ FactoryBot.define do
     deadline { Date.today + 1 }
     priority { "低" }
   end
-
+  
   factory :second_task, class: Task do
     title { 'タイトル2' }
     content { 'コンテンツ2' }

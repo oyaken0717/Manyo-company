@@ -10,6 +10,6 @@ FactoryBot.define do
     name{ "c@c.com" }
     email{ "c@c.com" }
     password_digest{ "c@c.com" }
-    clearpassword_confirmation{ "c@c.com" }
+    password_confirmation{ "c@c.com" }
   end
 end

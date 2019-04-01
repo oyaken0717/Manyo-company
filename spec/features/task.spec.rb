@@ -2,6 +2,7 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
   let!(:task_a) { FactoryBot.create(:task) }
+  FactoryBot.create(:label)
 
   background do
     FactoryBot.create(:task)
@@ -17,10 +18,6 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク一覧のテスト" do
-    # visit new_session_path
-    # fill_in 'session_email', with: 'a@a.com'
-    # fill_in 'session_password', with: 'a@a.com'
-    # click_button 'ログイン'
     visit tasks_path
     expect(page).to have_content 'タイトル1'
     expect(page).to have_content 'コンテンツ1'
@@ -31,9 +28,11 @@ RSpec.feature "タスク管理機能", type: :feature do
     fill_in "task_title", with:"タイトルnew"
     fill_in "task_content", with:"コンテンツnew"
     fill_in "task_deadline", with: Date.today
+    check "task_label_ids_1"
     click_on "Create Task"
     expect(page).to have_content 'タイトルnew'
     expect(page).to have_content 'コンテンツnew'
+    expect(page).to have_content 'label1'
   end
 
   scenario "タスク詳細のテスト" do

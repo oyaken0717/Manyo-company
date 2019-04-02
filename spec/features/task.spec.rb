@@ -28,11 +28,9 @@ RSpec.feature "タスク管理機能", type: :feature do
     fill_in "task_title", with:"タイトルnew"
     fill_in "task_content", with:"コンテンツnew"
     fill_in "task_deadline", with: Date.today
-    check "task_label_ids_1"
     click_on "Create Task"
     expect(page).to have_content 'タイトルnew'
     expect(page).to have_content 'コンテンツnew'
-    expect(page).to have_content 'label1'
   end
 
   scenario "タスク詳細のテスト" do
@@ -73,5 +71,17 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit tasks_path
     click_on "優先順位でソートする"
     expect(Task.order("priority DESC").map(&:priority)).to eq ["高","中","低","低"]
+  end
+
+  scenario "タスク作成(タグ付き)のテスト" do
+    visit new_task_path
+    fill_in "task_title", with:"タイトルnew"
+    fill_in "task_content", with:"コンテンツnew"
+    fill_in "task_deadline", with: Date.today
+    check "task_label_ids_1"
+    click_on "Create Task"
+    expect(page).to have_content 'タイトルnew'
+    expect(page).to have_content 'コンテンツnew'
+    expect(page).to have_content 'label1'
   end
 end

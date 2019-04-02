@@ -21,7 +21,11 @@
       <th>進捗</th>
       <th>順位</th>
     </tr>
-    <%= render partial: @tasks.length > 0 ? "tasks/row" : "tasks/notfound", collection: @tasks, as: "task"   %>
+    <% if @tasks.length > 0 %>
+      <%= render partial: "tasks/row", collection: @tasks, as: "task" %>
+    <% else %>
+      <%= render partial: "tasks/notfound" %>
+    <% end %>
   <%= paginate @tasks %><br>
   </table>
   <br>

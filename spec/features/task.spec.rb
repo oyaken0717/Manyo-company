@@ -2,8 +2,9 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
   let!(:task_a) { FactoryBot.create(:task) }
-  FactoryBot.create(:label)
 
+  FactoryBot.create(:label)
+  
   background do
     FactoryBot.create(:task)
     FactoryBot.create(:second_task)

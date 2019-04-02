@@ -1,3 +1,4 @@
+
 <div class="task-index">
   <h1 class="task-index__title" >一覧</h1>
   <p> <%= notice %></p>
@@ -25,6 +26,7 @@
       <%= render partial: "tasks/row", collection: @tasks, as: "task" %>
     <% else %>
       <%= render partial: "tasks/notfound" %>
+
     <% end %>
   <%= paginate @tasks %><br>
   </table>

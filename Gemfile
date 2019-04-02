@@ -34,10 +34,12 @@ group :test do
   gem 'selenium-webdriver'
   gem 'chromedriver-helper'
   gem 'database_cleaner'
+
   gem "pry-rails"
   gem "better_errors"
   gem "binding_of_caller"
   gem "launchy"
+
 end
 
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]

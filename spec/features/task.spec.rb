@@ -2,7 +2,9 @@ require 'rails_helper'
 
 RSpec.feature "タスク管理機能", type: :feature do
   let!(:task_a) { FactoryBot.create(:task) }
+
   FactoryBot.create(:label)
+
 
   background do
     FactoryBot.create(:task)
@@ -18,6 +20,8 @@ RSpec.feature "タスク管理機能", type: :feature do
   end
 
   scenario "タスク一覧のテスト" do
+
+
     visit tasks_path
     expect(page).to have_content 'タイトル1'
     expect(page).to have_content 'コンテンツ1'
@@ -51,7 +55,9 @@ RSpec.feature "タスク管理機能", type: :feature do
 
   scenario "タスク削除のテスト" do
     visit tasks_path
+
     page.first(".delete_num").click_link
+
     expect(page).to have_content '削除しました！！'
   end
 
@@ -71,6 +77,7 @@ RSpec.feature "タスク管理機能", type: :feature do
     visit tasks_path
     click_on "優先順位でソートする"
     expect(Task.order("priority DESC").map(&:priority)).to eq ["高","中","低","低"]
+
   end
 
   scenario "タスク作成(タグ付き)のテスト" do

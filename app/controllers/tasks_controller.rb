@@ -7,10 +7,13 @@ class TasksController < ApplicationController
     @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(PER)
     if params[:task]
       @tasks = @tasks.search_title(params[:task][:title]).search_status(params[:task][:status]) if params[:task][:status].present? && params[:task][:title].present?
-      @tasks = @tasks.search_title(params[:task][:title])if params[:task][:title].present?
-      @tasks = @tasks.search_status(params[:task][:status])if params[:task][:status].present?
-      # @tasks = @tasks.search_label(params[:task][:label_id]) if params[:task][:label_id].present?
-      @tasks = Label.find(params[:task][:label_id]).getTasks() if params[:task][:label_id].present?
+      @tasks = @tasks.search_title(params[:task][:title]) if params[:task][:title].present?
+      @tasks = @tasks.search_status(params[:task][:status]) if params[:task][:status].present?
+      ## @tasks = @tasks.search_label(params[:task][:label_id]) if params[:task][:label_id].present?
+      # @tasks = Label.find(params[:task][:label_id]).getTasks() if params[:task][:label_id].present?
+      @tasks = Label.find(params[:task][:label_id]).getTasks(paginate: true).page(params[:page]).per(PER) if params[:task][:label_id].present?
+      # @tasks = Label.find(params[:task][:label_id]).getTasks().paginate_array(Label.find(params[:task][:label_id])).page(params[:page]).per(PER) if params[:task][:label_id].present?
+      # binding.pry
       #                                             ↑modelsのlabel.rbにあります。
     end
     @tasks = Task.order(deadline: :asc).page(params[:page]).per(PER) if params[:deadline].present?

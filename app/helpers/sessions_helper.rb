@@ -8,7 +8,7 @@ module SessionsHelper
   end
 
   def authenticate_session_user
-    if current_user == nil
+    if !self.logged_in?
       redirect_to new_session_path, notice: "ログインしてください"
     end
   end

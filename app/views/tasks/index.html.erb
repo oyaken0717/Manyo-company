@@ -25,6 +25,7 @@
       <%= render partial: "tasks/row", collection: @tasks, as: "task" %>
     <% else %>
       <%= render partial: "tasks/notfound" %>
+
     <% end %>
   <%= paginate @tasks %><br>
   </table>

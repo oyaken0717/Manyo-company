@@ -4,7 +4,9 @@ class TasksController < ApplicationController
 
   PER = 5
   def index
+
     @tasks = current_user.tasks.order(created_at: :desc).page(params[:page]).per(PER)
+
     if params[:task]
       @tasks = @tasks.search_title(params[:task][:title]).search_status(params[:task][:status]) if params[:task][:status].present? && params[:task][:title].present?
       @tasks = @tasks.search_title(params[:task][:title]) if params[:task][:title].present?
@@ -38,7 +40,9 @@ class TasksController < ApplicationController
     end
   end
 
-  def show; end
+  def show
+    redirect_to tasks_path unless @task.isOwned?(current_user)
+  end
 
   def edit; end
 
@@ -67,7 +71,8 @@ class TasksController < ApplicationController
   end
 
   def set_task
-    @task = Task.find(params[:id])
+    @task = Task.find_by(id: params[:id])
+    redirect_to tasks_path if @task.nil?
   end
 end
 # label_id = 13

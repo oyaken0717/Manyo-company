@@ -22,7 +22,7 @@
   <%= link_to "削除", label_path(label.id), method: :delete, data: {confirm: "本当に削除してもいいですか？"} %>
 <% end %>
 
-<%= form_with(model: @label, local: true, url: labels_path) do |f| %>
+<%= form_with(model: Label.new, local: true, url: labels_path) do |f| %>
 <%# link_to "リンク名", アクション名_コントローラー名_path(受け渡したい変数の名前)
 link_to "リンク名", new_report_path(@report) %>
   <%= f.label :タグ名 %><br>

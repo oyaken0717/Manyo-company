@@ -21,6 +21,7 @@
         <%= link_to "ユーザー一覧", admin_users_path %>
       <% end %>
       <%= link_to "プロフィール", user_path(current_user.id) %>
+      <%= link_to "tasks", tasks_path %>
       <%= link_to "ログアウト", session_path(current_user.id), method: :delete %>
       <%= link_to "仕事一覧", tasks_path %>
     <% else %>

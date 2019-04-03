@@ -11,8 +11,6 @@
   </div>
 <% end %>
 <%= form_with(model: [:admin, @user], local: true) do |f| %>
-<%#= form_with(model: [ :admin, @user ], local: true) do |f| %>
-<%#= form_with(model: [ :admin, @post ]) do |form| %>
   <%= f.label :"名前"%><br>
   <%= f.text_field :name %><br>
   <%= f.label :メールアドレス %><br>

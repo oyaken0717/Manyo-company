@@ -17,5 +17,11 @@
   <%= f.select(:status,['未着手', '着手中', '完了']) %><br>
   <%= f.label :順位 %><br>
   <%= f.select(:priority,Task.priorities.keys) %><br>
+
+  <% Label.all.each do |label| %>
+    <%= f.check_box :label_ids, {multiple: true, checked: label[:checked], disabled: label[:disabled], include_hidden: false}, label[:id] %>
+    <label style = "background-color: aquamarine"><%= label.name %></label>
+  <% end %><br>
+
   <%= f.submit %><br>
 <% end %>

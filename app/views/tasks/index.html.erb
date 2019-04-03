@@ -1,16 +1,19 @@
-  <div class="task-index">
-    <h1 class="task-index__title" >一覧</h1>
-    <p> <%= notice %></p>
-    <%= link_to "終了期限でソートする", tasks_path(deadline: "true") %>
-    <%= link_to "優先順位でソートする", tasks_path(priority: "true") %>
 
-<%= form_with(model: @tasks, method: :get, local: true, url: tasks_path) do |f| %>
-  <%= f.label :title_search, '仕事名検索'%>
-  <%= f.text_field :title %>
-  <%= f.label :status_search, '進捗検索' %>
-  <%= f.select :status,["","未着手","着手中","完了"] %>
-  <%= f.submit '検索', class:"btn btn-primary" %><br><br>
-<% end %>
+<div class="task-index">
+  <h1 class="task-index__title" >一覧</h1>
+  <p> <%= notice %></p>
+  <%= link_to "終了期限でソートする", tasks_path(deadline: "true") %>
+  <%= link_to "優先順位でソートする", tasks_path(priority: "true") %>
+  <%= form_with(model:  @tasks.length > 0 ? @tasks : [Task.new], method: :get, local: true, url: tasks_path) do |f| %>
+    <%= f.label :title_search, '仕事名検索'%>
+    <%= f.text_field :title %>
+    <%= f.label :status_search, '進捗検索' %>
+    <%= f.select :status,["","未着手","着手中","完了"] %>
+    <%= f.label :label_search, 'ラベル検索'%>
+    <%= f.select :label_id, Label.all.map {|label| [label.name,label.id]}, include_blank: true %>
+    <%= f.submit '検索', class:"btn btn-primary" %><br>
+  <% end %>
+
   <table class="task-index__table">
     <tr>
       <th>仕事名</th>
@@ -19,52 +22,17 @@
       <th>進捗</th>
       <th>順位</th>
     </tr>
-  <% @tasks.each do |task| %>
-    <tr>
-      <td><%= task.title%></td>
-      <td><%= task.content %></td>
-      <td><%= task.deadline %></td>
-      <td><%= task.status %></td>
-      <td><%= task.priority %></td>
-      <td><%= link_to "詳細", task_path(task.id), class: "btn btn-primary" %></td>
-      <td><%= link_to "編集", edit_task_path(task.id), class: "btn btn-primary" %></td>
-      <td><%= link_to "削除", task_path(task.id), method: :delete, data: {confirm: "本当に削除してもいいですか？"}, class: "btn btn-primary" %></td>
-    </tr>
-  <% end %>
-    <table class="task-index__table">
-      <tr>
-        <th>仕事名</th>
-        <th>仕事内容</th>
-        <th>終了期限</th>
-        <th>進捗</th>
-        <th>順位</th>
-      </tr>
-    <% @tasks.each_with_index do |task, i| %>
-      <tr>
-        <td><%= task.title%></td>
-        <td><%= task.content %></td>
-        <td><%= task.deadline %></td>
-        <td><%= task.status %></td>
-        <td><%= task.priority %></td>
-        <td class = "task-index__show-link"><%= link_to "詳細", task_path(task.id), class: "btn btn-primary" %></td>
-        <td><%= link_to "編集", edit_task_path(task.id), class: "btn btn-primary"%></td>
-        <td id="delete_num"><%= link_to "削除", task_path(task.id), method: :delete, data: {confirm: "本当に削除してもいいですか？"}, class: "btn btn-primary" %></td>
-      </tr>
+    <% if @tasks.length > 0 %>
+      <%= render partial: "tasks/row", collection: @tasks, as: "task" %>
+    <% else %>
+      <%= render partial: "tasks/notfound" %>
+
+ 
     <% end %>
-    <%= paginate @tasks %><br>
-    </table>
-    <br>
-    <%= paginate @tasks %><br>
-    <%= link_to "仕事登録", new_task_path %>
-  </div>
-  <!-- .task-index {
-    &__title {
-    }
-    &__table {
-      &__job {
-        &-name {
-      }
-      &-content
-    }
-  }
-} -->
+  <%= paginate @tasks %><br>
+  </table>
+  <br>
+
+  <%= link_to "仕事登録", new_task_path %>
+
+</div>
